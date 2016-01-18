@@ -3,55 +3,140 @@
 sudo -v # ask for password only at the beginning
 
 
+#install
+echo "installing homebrew..."
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-#install homebrew
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
 
-
-
+#configure homebrew
 brew update
 brew upgrade
-
-brew install coreutils git vim
-
-#homebrew-cask
-brew tap homebrew/versions
+#brew tap homebrew/versions
+brew tap caskroom/versions
 brew tap phinze/homebrew-cask
 
-brew cask install dropbox
-brew cask install google-chrome
-brew cask install firefox
-brew cask install iterm2
-brew cask install sublime-text
-brew cask install flash
-brew cask install silverlight
-brew cask install node
-brew cask install virtualbox
-brew cask install vagrant
-brew cask install disk-inventory-x
-brew cask install alfred
-brew cask install sequel-pro
-brew cask install testflight
-brew cask install toggldesktop
-brew cask install divvy
-brew cask install airfoil
-brew cask install f-lux
-brew cask install adium
-brew cask install Skype
-brew cask install vlc
-brew cask install spotify
-brew cask install utorrent
-brew cask install witch
+
+#install cli apps
+binaries=(
+  android-sdk
+  ant
+  coreutils
+  fish
+  git
+  mackup
+  openssl
+  vim
+  wget
+)
+
+echo "installing binaries..."
+brew install ${binaries[@]}
 
 
-#allow brew cask apps in alfred
-brew cask alfred link
 
-#link sublime  for global 'sublime' command
-ln -s /Applications/Sublime\ Text\ 2.app/Contents/SharedSupport/bin/subl /usr/local/bin/sublime
+#install gui apps (with cask)
+apps=(
+  airfoil
+  bartender
+  calibre
+  cord
+  cyberduck
+  disk-inventory-x
+  diffmerge
+  divvy
+  dropbox
+  dukto
+  flux
+  firefox
+  flash
+  gas-mask
+  google-chrome
+  google-drive
+  hex-fiend
+  hipchat
+  istat-menus
+  iterm2
+  java7
+  little-snitch
+  multidoge
+  mysqlworkbench
+  node
+  sequel-pro
+  silverlight
+  skype
+  spotifree
+  spotify
+  slack
+  sqlitebrowser
+  sublime-text3
+  testflight
+  the-unarchiver
+  utorrent
+  vagrant
+  virtualbox
+  vlc
+  wireshark
+  witch
+  xquartz
+  ynab
+)
 
-#capistrano
+echo "installing gui apps..."
+brew cask install --appdir="/Applications" ${apps[@]}
+
+
+#custom quicklooks
+quicklooks=(
+  betterzipql
+  ipaql
+  qlcolorcode
+  qlmarkdown
+  qlprettypatch
+  qlstephen
+  quicklook-csv
+  quicklook-json
+  suspicious-package
+  webp-quicklook
+)
+
+echo "installing custom quicklooks..."
+brew cask install --appdir="/Applications" ${quicklooks[@]}
+
+
+#fonts
+#The font recipes are prefixed by font-*, so if you want to download Roboto, try searching for font-roboto:
+
+brew tap caskroom/fonts
+
+fonts=(
+  font-geo-sans-light
+  font-source-code-pro
+  font-roboto
+)
+
+# install fonts
+echo "installing fonts..."
+brew cask install ${fonts[@]}
+
+
+
+
+
+#cleanup
+brew cleanup
+
+
+#link sublime for global 'sublime' command
+ln -s /opt/homebrew-cask/Caskroom/sublime-text3/Build 3059/Sublime Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+
+#install capistrano
 gem sources -a http://gems.github.com/
 
 #note - sticking to capistrano v2 for now...
 sudo gem install capistrano -v "=2.15.5"
+
+#install cocoapods
+sudo gem install cocoapods
+
+#install vagrant-cachier (to speed up provisioning)
+vagrant plugin install vagrant-cachier
