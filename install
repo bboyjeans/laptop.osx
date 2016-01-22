@@ -18,8 +18,6 @@ brew tap phinze/homebrew-cask
 
 #install cli apps
 binaries=(
-  android-sdk
-  ant
   coreutils
   fish
   git
@@ -27,6 +25,12 @@ binaries=(
   openssl
   vim
   wget
+  gnu-sed --with-default-names
+  gnu-tar --with-default-names
+  gnu-which --with-default-names
+  grep --with-default-names
+  gzip
+  unzip
 )
 
 echo "installing binaries..."
@@ -36,49 +40,25 @@ brew install ${binaries[@]}
 
 #install gui apps (with cask)
 apps=(
-  airfoil
-  bartender
   calibre
   cord
-  cyberduck
   disk-inventory-x
   diffmerge
-  divvy
   dropbox
   dukto
   flux
-  firefox
-  flash
   gas-mask
-  google-chrome
   google-drive
   hex-fiend
-  hipchat
   istat-menus
   iterm2
   java7
-  little-snitch
-  multidoge
-  mysqlworkbench
-  node
   sequel-pro
-  silverlight
   skype
-  spotifree
   spotify
-  slack
-  sqlitebrowser
-  sublime-text3
-  testflight
   the-unarchiver
   utorrent
-  vagrant
-  virtualbox
-  vlc
-  wireshark
-  witch
   xquartz
-  ynab
 )
 
 echo "installing gui apps..."
@@ -96,7 +76,7 @@ quicklooks=(
   quicklook-csv
   quicklook-json
   suspicious-package
-  webp-quicklook
+  webpquicklook
 )
 
 echo "installing custom quicklooks..."
@@ -119,24 +99,21 @@ echo "installing fonts..."
 brew cask install ${fonts[@]}
 
 
-
-
-
 #cleanup
 brew cleanup
 
 
 #link sublime for global 'sublime' command
-ln -s /opt/homebrew-cask/Caskroom/sublime-text3/Build 3059/Sublime Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
+# ln -s /opt/homebrew-cask/Caskroom/sublime-text3/Build 3059/Sublime Text.app/Contents/SharedSupport/bin/subl /usr/local/bin/subl
 
 #install capistrano
 gem sources -a http://gems.github.com/
 
 #note - sticking to capistrano v2 for now...
-sudo gem install capistrano -v "=2.15.5"
+# sudo gem install capistrano -v "=2.15.5"
 
 #install cocoapods
 sudo gem install cocoapods
 
 #install vagrant-cachier (to speed up provisioning)
-vagrant plugin install vagrant-cachier
+# vagrant plugin install vagrant-cachier
